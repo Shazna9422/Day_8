@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   Menu,
   Search,
@@ -8,14 +9,26 @@ import {
 
 export default function Navbar() {
   return (
-    <header className="border-b bg-white">
+    <motion.header
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="sticky top-0 z-50 border-b bg-white"
+    >
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex h-20 items-center justify-between gap-4">
 
-          <div className="flex items-center gap-2">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-500 text-white">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            className="flex cursor-pointer items-center gap-2"
+          >
+            <motion.div
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.6 }}
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-500 text-white"
+            >
               <ShoppingCart size={24} />
-            </div>
+            </motion.div>
             <div>
               <h1 className="text-2xl font-extrabold">
                 Shop<span className="text-orange-500">Ease</span>
@@ -24,40 +37,81 @@ export default function Navbar() {
                 Shop Smart. Live Better.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           <div className="hidden max-w-md flex-1 lg:flex">
-            <div className="flex w-full items-center rounded-lg border bg-gray-50 px-4">
+            <motion.div
+              whileFocus={{ scale: 1.02 }}
+              className="flex w-full items-center rounded-lg border bg-gray-50 px-4 focus-within:border-orange-500"
+            >
               <Search size={19} className="text-gray-400" />
               <input
                 type="text"
                 placeholder="Search products..."
                 className="w-full bg-transparent px-3 py-3 text-sm outline-none"
               />
-            </div>
+            </motion.div>
           </div>
 
           <nav className="hidden items-center gap-6 lg:flex">
-            <a href="#" className="text-sm hover:text-orange-500">New In</a>
-            <a href="#" className="text-sm hover:text-orange-500">Women</a>
-            <a href="#" className="text-sm hover:text-orange-500">Men</a>
-            <a href="#" className="text-sm hover:text-orange-500">Home & Living</a>
-            <a href="#" className="text-sm font-semibold text-orange-500">Deals</a>
+            {["New In", "Women", "Men", "Home & Living"].map((link, i) => (
+              <motion.a
+                key={link}
+                href="#"
+                initial={{ opacity: 0, y: -15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 + i * 0.1 }}
+                whileHover={{ y: -2 }}
+                className="text-sm hover:text-orange-500"
+              >
+                {link}
+              </motion.a>
+            ))}
+            <motion.a
+              href="#"
+              initial={{ opacity: 0, y: -15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              whileHover={{ y: -2 }}
+              className="text-sm font-semibold text-orange-500"
+            >
+              Deals
+            </motion.a>
           </nav>
 
           <div className="flex items-center gap-1">
-            <button className="hidden rounded-lg p-2 hover:bg-gray-100 sm:block">
+            <motion.button
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
+              className="hidden rounded-lg p-2 hover:bg-gray-100 sm:block"
+            >
               <Heart size={21} />
-            </button>
-            <button className="rounded-lg p-2 hover:bg-gray-100">
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
+              className="rounded-lg p-2 hover:bg-gray-100"
+            >
               <User size={21} />
-            </button>
-            <button className="relative rounded-lg p-2">
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.15 }}
+              whileTap={{ scale: 0.9 }}
+              className="relative rounded-lg p-2"
+            >
               <ShoppingCart size={21} />
-              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-[10px] text-white">
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", delay: 0.8 }}
+                className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-[10px] text-white"
+              >
                 2
-              </span>
-            </button>
+              </motion.span>
+            </motion.button>
+
             <button className="lg:hidden">
               <Menu size={25} />
             </button>
@@ -65,6 +119,6 @@ export default function Navbar() {
 
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

@@ -7,6 +7,7 @@ import DealOfDay from "./components/DealOfDay";
 import NewArrivals from "./components/NewArrivals";
 import Newsletter from "./components/Newsletter";
 import Footer from "./components/Footer";
+import Reveal from "./components/Reveal";
 
 function App() {
   return (
@@ -22,10 +23,14 @@ function App() {
           <DealOfDay />
         </div>
         <NewArrivals />
-        <Newsletter />
+        <Reveal>
+          <Newsletter />
+        </Reveal>
       </main>
 
-      <Footer />
+      <Reveal y={20}>
+        <Footer />
+      </Reveal>
     </div>
   );
 }
